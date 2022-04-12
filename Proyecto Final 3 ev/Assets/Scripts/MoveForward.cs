@@ -13,4 +13,12 @@ public class MoveForward : MonoBehaviour
         // Movimiento hacia delante del proyectil
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider otherCollision)
+    {
+        if (otherCollision.gameObject.CompareTag("Pared"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

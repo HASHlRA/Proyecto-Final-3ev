@@ -13,13 +13,15 @@ public class DetectCollision : MonoBehaviour
         PlayerControllerScript = FindObjectOfType<PlayerController>();
     }
 
-    private void OnTriggerEnter(Collider otherCollider)
+    private void OnCollisionEnter(Collision otherCollider)
     {
-        // Destruyo el tanque contra el que colisiona
-        Destroy(otherCollider.gameObject);
-
-        // Destruyo el proyectil
-        Destroy(gameObject);
+        if (otherCollider.gameObject.CompareTag("Player"))
+        {
+            PlayerControllerScript.UpdateLife(-1);
+            
+            // Destruyo el proyectil
+            Destroy(gameObject);
+        }
 
     }
 }
