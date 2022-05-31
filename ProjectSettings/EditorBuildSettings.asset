@@ -19,14 +19,17 @@ EditorBuildSettings:
     guid: 055360294b7540946bbfca5f9378ee74
   - enabled: 1
     path: Assets/Scenes/Escena 2.unity
-    guid: d75cc8b20e0e60a4e9b4ce274ba44249
+    guid: 6c80f2a5b9e01664e94cd07575a3ee2f
   - enabled: 1
     path: Assets/Scenes/Escena 3.unity
-    guid: ba6d148dc0204a54abf9a256b806bd5f
+    guid: 0704439fc6bc0234a97e7de858bd9bce
   - enabled: 1
     path: Assets/Scenes/Escena 4.unity
-    guid: 4b8a32e236ddf5044a0ae2049eacbf32
+    guid: 3b08525cddfd32d418867c7c73ff67d4
   - enabled: 1
     path: Assets/Scenes/Escena 5.unity
-    guid: 31e17dc62e4d12440b6cd98cd9b365cc
+    guid: a40f576a922c9ac4c83d569131a65d40
+  - enabled: 1
+    path: Assets/Scenes/UI/Shop.unity
+    guid: 6b78c0141a854f34da3ecebf87f07b22
   m_configObjects: {}

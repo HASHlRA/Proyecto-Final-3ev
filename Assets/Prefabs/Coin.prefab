@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 204380401046008938}
   - component: {fileID: 204380401046008939}
   - component: {fileID: 204380401046008932}
+  - component: {fileID: 5840120252996318258}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Moneda
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204380401046008937}
-  m_LocalRotation: {x: 0.61395365, y: 0.35080048, z: 0.61395365, w: 0.35080048}
-  m_LocalPosition: {x: 0.6700001, y: 0.45, z: -4.1673436}
-  m_LocalScale: {x: 1, y: 0.03, z: 1}
+  m_LocalRotation: {x: 0.86817497, y: -0.007008038, z: -0.012265226, w: 0.49605724}
+  m_LocalPosition: {x: 0.67, y: 0.45, z: -4.1673436}
+  m_LocalScale: {x: 0.73586, y: 0.022075798, z: 0.73586}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 120.515}
+  m_LocalEulerAnglesHint: {x: 59.447, y: 183.186, z: 182.744}
 --- !u!33 &204380401046008938
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ea8f7da97d58f845b517302839ec0d6, type: 2}
+  - {fileID: 2100000, guid: 67be899c40943ca45a210c88594df4a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,3 +96,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &5840120252996318258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204380401046008937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e9429635b93e764792d68b2a1c0733f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

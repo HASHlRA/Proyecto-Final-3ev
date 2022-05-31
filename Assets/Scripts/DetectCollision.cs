@@ -5,12 +5,19 @@ using UnityEngine;
 public class DetectCollision : MonoBehaviour
 {
     private PlayerController PlayerControllerScript;
-    public int score;
+
+
+    private AudioSource EnemyAudioSource;
+    public AudioClip damageAudio;
+
+    //Particulas
+    public ParticleSystem daño;
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerControllerScript = FindObjectOfType<PlayerController>();
+        EnemyAudioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision otherCollider)
@@ -18,7 +25,17 @@ public class DetectCollision : MonoBehaviour
         if (otherCollider.gameObject.CompareTag("Player"))
         {
             PlayerControllerScript.UpdateLife(-1);
-            
+
+            Debug.Log(damageAudio);
+
+            EnemyAudioSource.PlayOneShot(damageAudio);
+
+            ParticleSystem explosionEscena = Instantiate(daño, transform.position,
+        daño.transform.rotation);
+            explosionEscena.Play();
+
+
+
             // Destruyo el proyectil
             Destroy(gameObject);
         }

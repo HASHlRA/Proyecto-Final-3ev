@@ -47,6 +47,21 @@ public class PlayerController : MonoBehaviour
     //Para cambio de escena 
     public GameObject[] nextScene;
 
+    //Para la musica
+    private AudioSource playerAudioSource;
+    private AudioSource cameraAudioSource;
+    public AudioClip moneyAudio;
+    public AudioClip healAudio;
+    public AudioClip shot;
+    public AudioClip gameoverAudio;
+
+    private Vector3[] startposition = new Vector3[]
+    {
+        new Vector3(0,0.5f,4),
+        new Vector3 (4f,0.5f,0),
+        new Vector3(0,0.5f,-4f),
+        new Vector3(-4f,0.5f,0)
+    };
 
 
 
@@ -56,6 +71,25 @@ public class PlayerController : MonoBehaviour
     {
         life = hearts.Length;
         pointText.text = $" {score}";
+        playerAudioSource = GetComponent<AudioSource>();
+        Debug.Log(Datapersistence.sharedInstance.doorindex);
+        if (Datapersistence.sharedInstance.doorindex == -1)
+        {
+            transform.position = new Vector3(0, 0.5f, 7);
+        }
+        else
+        {
+            transform.position = startposition[(Datapersistence.sharedInstance.doorindex + 2) % 4];
+        }
+        /*
+        else
+        {
+            Datapersistence.sharedInstance.pointText = pointText.text;
+        }
+        */
+      
+
+
     }
 
     // Update is called once per frame
@@ -71,6 +105,7 @@ public class PlayerController : MonoBehaviour
         // Disparo
         verticalInputS = Input.GetAxis("VerticalShoot");
         horizontalInputS = Input.GetAxis("HorizontalShoot");
+        
         if (verticalInputS != 0 && shooting())
         {
             transform.rotation = Quaternion.Euler(0, Mathf.Sign(verticalInputS) > 0 ? 0 : 180, 0);
@@ -127,6 +162,7 @@ public class PlayerController : MonoBehaviour
 
         lastshoot = Time.time;
         return true;
+        //playerAudioSource.PlayOneShot(shot);
     }
 
     private void OnTriggerEnter(Collider otherCollision)
@@ -138,10 +174,12 @@ public class PlayerController : MonoBehaviour
             
             score++;
             pointText.text = $" {score}";
-            
 
-            
+            playerAudioSource.PlayOneShot(moneyAudio);
+
             Destroy(otherCollision.gameObject);
+
+          
             /*
             score++;
             Debug.Log(score);
@@ -151,6 +189,7 @@ public class PlayerController : MonoBehaviour
         if (otherCollision.gameObject.CompareTag("Heal"))
         {
             UpdateLife(1);
+            playerAudioSource.PlayOneShot(healAudio);
             Destroy(otherCollision.gameObject);
             Debug.Log("a");
         }
@@ -161,6 +200,10 @@ public class PlayerController : MonoBehaviour
         {
             // Indica que el juego ha finalizado
             gameOver = true;
+
+            playerAudioSource.PlayOneShot(gameoverAudio);
+
+            //cameraAudioSource.volume = 0.01f;
 
             // Muestra en consola tu resultado
             Debug.Log($"GAME OVER.");
@@ -173,6 +216,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log(life);
         if (life <= 0)
         {
+            hearts[0].gameObject.SetActive(false);
+            hearts[1].gameObject.SetActive(false);
+            hearts[2].gameObject.SetActive(false);
             GameOver();
             Debug.Log("Game Over");
         }
@@ -195,6 +241,7 @@ public class PlayerController : MonoBehaviour
             hearts[2].gameObject.SetActive(true);
         }
     }
+
     
 
 

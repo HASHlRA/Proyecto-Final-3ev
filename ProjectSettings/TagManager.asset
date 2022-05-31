@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Moneda
   - Heal
+  - Door
+  - doortrigger
   layers:
   - Default
   - TransparentFX
