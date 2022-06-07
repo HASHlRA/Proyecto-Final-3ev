@@ -5,25 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class nextscene : MonoBehaviour
 {
+    // Para el cambio de scena a traves de las puertas 
     public int _doorindex;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             int randomindex = Random.Range(1, 6);
             string scenename = $"Escena {randomindex}";
-            Datapersistence.sharedInstance.doorindex=_doorindex;
+            DataPersistence.sharedInstance.doorindex=_doorindex;
             SceneManager.LoadScene(scenename);
         }
     }

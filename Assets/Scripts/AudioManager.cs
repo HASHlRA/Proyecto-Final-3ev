@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Datapersistence : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    
-    // Instancia compartida
-    public static Datapersistence sharedInstance;
+    public static AudioManager sharedInstance;
+    public AudioSource music;
+    // Start is called before the first frame update
+    void Start()
+    {
+        music = GetComponent<AudioSource>();
+    }
 
-    // Variables cuyo valor queremos conservar entre escenas:
-    public int doorindex;
+    // Update is called once per frame
+    void Update()
+    {
 
-
-
-
-   
-    // Nos aseguramos de que la instancia sea única
+    }
     private void Awake()
     {
         // Si la instancia no existe
@@ -33,6 +34,15 @@ public class Datapersistence : MonoBehaviour
         }
     }
 
-  
-    
+    // Para silenciar 
+    public void enablemusic(bool ison)
+    {
+        music.mute = !ison;
+    }
+    //Para regular volumen
+    public void setvolume(float v)
+    {
+        music.volume = v;
+    }
+
 }

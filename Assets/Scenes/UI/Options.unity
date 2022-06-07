@@ -368,9 +368,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 943754006}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: set_volume
+      - m_Target: {fileID: 1208952643}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: slidervolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1899,9 +1899,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8300000, guid: 532c563d16d052a47aaf304e13c1c31e, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: 
+      - m_Target: {fileID: 160616477}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1911,9 +1911,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 160616477}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
-        m_MethodName: set_interactable
+      - m_Target: {fileID: 1208952643}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: tooglemusic
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2139,8 +2139,8 @@ MonoBehaviour:
   colors:
   - {fileID: 1981319971}
   - {fileID: 390213693}
-  - {fileID: 1760548001}
   - {fileID: 1786669631}
+  - {fileID: 1760548001}
   username: {fileID: 1637558684}
 --- !u!1 &1226351979
 GameObject:
@@ -3636,6 +3636,9 @@ MonoBehaviour:
   colorSelected: 0
   color: {r: 0, g: 0, b: 0, a: 0}
   username: 
+  lives: 3
+  money: 0
+  doorindex: 0
 --- !u!1 &2008638041
 GameObject:
   m_ObjectHideFlags: 0

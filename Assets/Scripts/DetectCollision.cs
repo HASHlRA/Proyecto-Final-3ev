@@ -6,12 +6,12 @@ public class DetectCollision : MonoBehaviour
 {
     private PlayerController PlayerControllerScript;
 
-
+    //Sonidos
     private AudioSource EnemyAudioSource;
     public AudioClip damageAudio;
 
     //Particulas
-    public ParticleSystem daño;
+    public ParticleSystem danyo;
 
     // Start is called before the first frame update
     void Start()
@@ -26,18 +26,17 @@ public class DetectCollision : MonoBehaviour
         {
             PlayerControllerScript.UpdateLife(-1);
 
+            Destroy(gameObject);
+
             Debug.Log(damageAudio);
 
             EnemyAudioSource.PlayOneShot(damageAudio);
 
-            ParticleSystem explosionEscena = Instantiate(daño, transform.position,
-        daño.transform.rotation);
+            ParticleSystem explosionEscena = Instantiate(danyo, transform.position,
+        danyo.transform.rotation);
             explosionEscena.Play();
 
 
-
-            // Destruyo el proyectil
-            Destroy(gameObject);
         }
 
     }

@@ -11,7 +11,10 @@ public class DataPersistence : MonoBehaviour
     public int colorSelected;
     public Color color;
     public string username;
-    
+    public int lives = 3;
+    public int money = 0;
+    public int doorindex;
+
 
     // Nos aseguramos de que la instancia sea única
     private void Awake()

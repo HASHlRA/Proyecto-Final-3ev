@@ -33,14 +33,10 @@ public class PlayerController : MonoBehaviour
     public GameObject[] hearts;
 
     // Límite de escenario
-    private float xRange = 8.75f;
-    private float zRange = 8.75f;
+    private float xRange = 15f;
+    private float zRange = 15f;
 
-    // Contador de monedas
-   // private int moneda = 0;
-   // public TextMeshProUGUI monedaText;
-  //  public int counter = 10;
-
+    // Para el score
     public TextMeshProUGUI pointText;
     private int score = 0;
 
@@ -55,6 +51,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip shot;
     public AudioClip gameoverAudio;
 
+    //Para la posicion inicial del player
     private Vector3[] startposition = new Vector3[]
     {
         new Vector3(0,0.5f,4),
@@ -63,33 +60,41 @@ public class PlayerController : MonoBehaviour
         new Vector3(-4f,0.5f,0)
     };
 
-
+    //Para el Game Over
+    public GameObject gameOverPanel;
+    public GameObject restartPanel;
+    public GameObject exitPanel;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        life = hearts.Length;
+        Time.timeScale = 1f;
+
+        // Persistencia de datos
+            // La vida
+        life = DataPersistence.sharedInstance.lives;
+        UpdateLife (0);
+            //El score
+        score = DataPersistence.sharedInstance.money;
         pointText.text = $" {score}";
+            // para la musica
         playerAudioSource = GetComponent<AudioSource>();
-        Debug.Log(Datapersistence.sharedInstance.doorindex);
-        if (Datapersistence.sharedInstance.doorindex == -1)
+            // Para la puerta en la q sale y entra
+        Debug.Log(DataPersistence.sharedInstance.doorindex);
+        if (DataPersistence.sharedInstance.doorindex == -1)
         {
             transform.position = new Vector3(0, 0.5f, 7);
         }
         else
         {
-            transform.position = startposition[(Datapersistence.sharedInstance.doorindex + 2) % 4];
+            transform.position = startposition[(DataPersistence.sharedInstance.doorindex + 2) % 4];
         }
-        /*
-        else
-        {
-            Datapersistence.sharedInstance.pointText = pointText.text;
-        }
-        */
-      
 
-
+        //Para el panel de Game Over
+        gameOverPanel.SetActive(false);
+        restartPanel.SetActive(false);
+        exitPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -98,21 +103,18 @@ public class PlayerController : MonoBehaviour
         // Movimiento del player
         verticalInput = Input.GetAxis("VerticalMovement");
         transform.Translate( Vector3.forward * speed * Time.deltaTime * verticalInput, Space.World);
-
         horizontalInput = Input.GetAxis("HorizontalMovement");
         transform.Translate( Vector3.right * speed * Time.deltaTime * horizontalInput, Space.World);
 
         // Disparo
         verticalInputS = Input.GetAxis("VerticalShoot");
-        horizontalInputS = Input.GetAxis("HorizontalShoot");
-        
+        horizontalInputS = Input.GetAxis("HorizontalShoot");        
         if (verticalInputS != 0 && shooting())
         {
             transform.rotation = Quaternion.Euler(0, Mathf.Sign(verticalInputS) > 0 ? 0 : 180, 0);
             Instantiate(projectilePrefab, transform.position, transform.rotation);
             
         }
-
         else if (horizontalInputS != 0 && shooting())
         {
             transform.rotation = Quaternion.Euler(0, Mathf.Sign(horizontalInputS) * 90, 0);
@@ -120,38 +122,26 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        
-
         // Limite de pantalla
         if (transform.position.x > xRange)
         {
             transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
         }
-
         // Limite de pantalla izquierdo
         if (transform.position.x < -xRange)
         {
             transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
         }
-
         if (transform.position.x > zRange)
         {
             transform.position = new Vector3(zRange, transform.position.y, transform.position.z);
         }
-
         // Limite de pantalla izquierdo
         if (transform.position.x < -zRange)
         {
             transform.position = new Vector3(-zRange, transform.position.y, transform.position.z);
         }
-
-       
-
-
-
     }
-
-  
 
     bool shooting()
     {
@@ -162,28 +152,21 @@ public class PlayerController : MonoBehaviour
 
         lastshoot = Time.time;
         return true;
-        //playerAudioSource.PlayOneShot(shot);
+        
     }
 
     private void OnTriggerEnter(Collider otherCollision)
-    {
-        
-
+    {       
         if (otherCollision.gameObject.CompareTag("Moneda"))
         {
             
             score++;
+            DataPersistence.sharedInstance.money = score;
             pointText.text = $" {score}";
 
             playerAudioSource.PlayOneShot(moneyAudio);
 
-            Destroy(otherCollision.gameObject);
-
-          
-            /*
-            score++;
-            Debug.Log(score);
-            */
+            Destroy(otherCollision.gameObject);            
         }
 
         if (otherCollision.gameObject.CompareTag("Heal"))
@@ -200,19 +183,21 @@ public class PlayerController : MonoBehaviour
         {
             // Indica que el juego ha finalizado
             gameOver = true;
+            gameOverPanel.SetActive(true);
+            restartPanel.SetActive(true);
+            exitPanel.SetActive(true);
 
+            // Sonido de fame over
             playerAudioSource.PlayOneShot(gameoverAudio);
-
-            //cameraAudioSource.volume = 0.01f;
-
-            // Muestra en consola tu resultado
-            Debug.Log($"GAME OVER.");
+            Time.timeScale = 0f;
         }
     }
     
+    // Para el contador de vidas del player
     public void UpdateLife(int value)
     {
         life += value;
+        DataPersistence.sharedInstance.lives = life;
         Debug.Log(life);
         if (life <= 0)
         {
@@ -241,8 +226,4 @@ public class PlayerController : MonoBehaviour
             hearts[2].gameObject.SetActive(true);
         }
     }
-
-    
-
-
 }

@@ -13,11 +13,6 @@ public class MenuManager : MonoBehaviour
 
     private int colorSelected;
 
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
         ColorSelection();
@@ -61,7 +56,8 @@ public class MenuManager : MonoBehaviour
             colorSelected--;
         }
 
-        colorSelected %= 4;
+        
+        colorSelected = (colorSelected % 4 + 4) % 4;
         ChangeColorSelection();
     }
 
@@ -73,5 +69,16 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    // Para poder sesactivar la musica con el toogle
+    public void tooglemusic(bool ison)
+    {
+        AudioManager.sharedInstance.enablemusic(ison);
+    }
+
+    // Para poder controlar la musica con el slider
+    public void slidervolume(float v)
+    {
+        AudioManager.sharedInstance.setvolume (v);
+    }
     #endregion
 }
